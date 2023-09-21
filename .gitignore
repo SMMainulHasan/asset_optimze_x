@@ -1,0 +1,26 @@
+# Compiled binaries or libraries
+*.dll
+*.so
+*.dylib
+
+# Compiled Python files (if applicable)
+__pycache__/
+
+# Virtual environment directories (if not using a shared virtual environment)
+venv/
+env/
+
+# Temporary or backup files
+*~
+
+# macOS system files
+.DS_Store
+
+# IDE or editor-specific files and directories
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Dependencies installed via package managers (e.g., Pipenv, poetry)
+.lock/

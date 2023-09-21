@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+
+# Built files
+build/
+dist/
+.cache/
+
+# Environment files (you might have different ones)
+.env.local
+.env.development
+.env.test
+.env.production
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Compiled output and logs
+*.log
+*.log.*
+*.npm-debug.log*
+*.yarn-error.log*
