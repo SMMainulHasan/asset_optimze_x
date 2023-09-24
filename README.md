@@ -5,7 +5,7 @@ Goal:  efficiently organize, centralize, and secure digital assets like images a
 ##Features: 
 
 1. User Authentication and Access Control:
--User registration and login functionality with secure authentication.(Oaugth)
+-User registration and login functionality with secure authentication.(Oauth)
 -Role-based access control to determine who can view, upload, edit, and delete assets.
 
 2. Asset Upload and Management:
