@@ -13,7 +13,7 @@ const UserRegister = () => {
                 </div>
                 <div>
                     <label className="label">
-                        <span className="text-base label-text">Phome Number</span>
+                        <span className="text-base label-text">Phone Number</span>
                     </label>
                     <input type="text" placeholder="Phone" className="w-full input input-bordered" />
                 </div>
