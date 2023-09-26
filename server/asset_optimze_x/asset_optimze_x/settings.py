@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    'corsheaders',    ######## corsheader
     'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework_simplejwt', ####### JWT token add
     'account',
     
     
@@ -48,10 +48,10 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", ##### Cors-header add frontend access required
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,6 +86,7 @@ WSGI_APPLICATION = 'asset_optimze_x.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+############ MySQL Database Add ##############
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -128,6 +129,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+####### Custom user Model Required Field ###########
 AUTH_USER_MODEL = 'account.User'
 
 # Static files (CSS, JavaScript, Images)
@@ -152,7 +154,6 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-   
    
 
     "AUTH_HEADER_TYPES": ("Bearer",),
@@ -183,7 +184,7 @@ SIMPLE_JWT = {
 # ]
 
 ######## Reset password Email Token Time limit ##########
-PASSWORD_RESET_TIMEOUT = 900
+PASSWORD_RESET_TIMEOUT = 900 ### second
 
 ######## Email Configuration #####
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

@@ -31,16 +31,19 @@ class UserRegistrationView(APIView):
   permission_classes = [AllowAny]
   def post(self, request, format = None):
     serializer = UserRegistrationSerializer(data= request.data)   
-    if serializer.is_valid(raise_exception=True):
+    if serializer.is_valid(raise_exception=True): #### raise exception use, not required if or else
       serializer.save()
       email = serializer.data.get('email')
-      print(email)
+      
       user = User.objects.get(email=email)
-      uid = urlsafe_base64_encode(force_bytes(user.id))
+      uid = urlsafe_base64_encode(force_bytes(user.id)) ### User id Encode
+      
       print("Encoded UID ", uid)
-      token = default_token_generator.make_token(user)
+      token = default_token_generator.make_token(user) #### Register token update
       print("Accoun Active Token", token)
-      link =  str('http://localhost:3000/api/user/reset/')
+      
+      link =  str('http://localhost:3000/api/user/reset/') ### redirect link
+      
       print("Account reset link", link+str(uid)+ "/"+str(token))
       
       body = 'Click Following Link to Active Your Account ' + link+str(uid)+ "/"+str(token)
