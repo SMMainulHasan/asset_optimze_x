@@ -9,15 +9,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-<<<<<<< HEAD
-
-import os
-=======
 import os
 from datetime import timedelta
->>>>>>> 806a051d955290bff3b669c8aef3896dba9c1519
 from pathlib import Path
-from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,11 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'account',
-<<<<<<< HEAD
-=======
     
     
->>>>>>> 806a051d955290bff3b669c8aef3896dba9c1519
 ]
 
 
@@ -58,12 +50,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-<<<<<<< HEAD
-    'corsheaders.middleware.CorsMiddleware',
-=======
     "corsheaders.middleware.CorsMiddleware",
     
->>>>>>> 806a051d955290bff3b669c8aef3896dba9c1519
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -161,45 +149,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
-AUTH_USER_MODEL = 'account.User'
-
-# Email Configuration
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'abujafarshiddik123@gmail.com'
-EMAIL_HOST_PASSWORD = 'irthwpfmaiadobf'
-EMAIL_USE_TLS = True
-
-# JWT settings
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
-
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type',
-    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
-
-    'JTI_CLAIM': 'jti',
-
-}
-
-PASSWORD_RESET_TIMEOUT = 900   # 900 sec = 15 min
-
-# cors origin
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:9000",
-    "http://127.0.0.1:8000",
-]
-=======
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -254,4 +203,3 @@ EMAIL_HOST_USER = 'creative3218@gmail.com'
 EMAIL_HOST_PASSWORD = 'ltpwlpvjxcmjsjpu'
 EMAIL_USE_TLS = True
 
->>>>>>> 806a051d955290bff3b669c8aef3896dba9c1519
