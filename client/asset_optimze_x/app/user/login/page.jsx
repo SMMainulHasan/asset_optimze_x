@@ -1,5 +1,5 @@
 
-const UserRegister = () => {
+const UserLogin = () => {
   return (
     <div className="relative flex flex-col items-center justify-center h-screen overflow-hidden">
         <div className="w-full p-6 bg-white border-t-4 border-gray-600 rounded-md shadow-md border-top lg:max-w-lg">
@@ -13,27 +13,14 @@ const UserRegister = () => {
                 </div>
                 <div>
                     <label className="label">
-                        <span className="text-base label-text">Phome Number</span>
-                    </label>
-                    <input type="text" placeholder="Phone" className="w-full input input-bordered" />
-                </div>
-                <div>
-                    <label className="label">
                         <span className="text-base label-text">Password</span>
-                    </label>
-                    <input type="password" placeholder="Enter Password"
-                        className="w-full input input-bordered" />
-                </div>
-                <div>
-                    <label className="label">
-                        <span className="text-base label-text">Conform Password</span>
                     </label>
                     <input type="password" placeholder="Enter Password"
                         className="w-full input input-bordered" />
                 </div>
                 <a href="#" className="text-xs text-gray-600 hover:underline hover:text-blue-600">Forget Password?</a>
                 <div>
-                    <button className="btn btn-block">Register</button>
+                    <button className="btn btn-block">Login</button>
                 </div>
             </form>
         </div>
@@ -41,4 +28,4 @@ const UserRegister = () => {
   )
 }
 
-export default UserRegister
+export default UserLogin
