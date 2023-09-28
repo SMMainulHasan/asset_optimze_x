@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import './App.css'
-import Home from './components/Home/Home'
-import UserLogin from './components/user/login/login'
+import { Navigate, Route, Routes } from "react-router-dom";
+import './App.css';
+import UserLogin from "./components/user/login/login";
+import UserRegister from "./components/user/register/register";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-      </h1>
-      <Home/>
-      <UserLogin/>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/user/login" element={<UserLogin />}/>
+        <Route path="/user/register" element={<UserRegister/>}/>
+        {/* <Route path="/posts/" element={<Posts />} /> */}
+        {/* <Route path="/posts/:postId" element={<Post />} /> */}
+      </Routes>
     </>
   )
 }
