@@ -1,6 +1,5 @@
-import { navbarMenu } from "@/constants";
-import Link from "next/link";
-import React from "react";
+import { Link } from "react-router-dom";
+import { navbarMenu } from "./navbarItems";
 
 const Navbar = () => {
   return (
@@ -69,7 +68,7 @@ const Navbar = () => {
             })}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Brand Folder</a>
+        <Link className="btn btn-ghost normal-case text-xl" to='/'>Asset OptimizeX</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 z-10">
@@ -97,8 +96,8 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-x-3 pr-5">
-        <a className="btn btn-outline">Your Brandfolders</a>
-        <a className="btn btn-primary">Get Started</a>
+        <Link className="btn btn-outline" to="/user/login">Your Assets</Link>
+        <Link className="btn btn-primary" to="/user/register">Get Started</Link>
       </div>
     </div>
   );

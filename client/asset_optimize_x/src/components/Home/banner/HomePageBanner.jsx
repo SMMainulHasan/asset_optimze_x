@@ -1,17 +1,16 @@
-import Image from "next/image";
-import React from "react";
-import PricingPageBannerImage from "@/assets/images/hero-with-four-stacked-balls.webp";
-import "./PricingPageBanner.css";
+// import Image from "next/image";
+import PricingPageBannerImage from "../../../assets/images/hero-with-four-stacked-balls.webp";
+import "./HomePageBanner.css";
 
-const PricingPageBanner = () => {
+const HomePageBanner = () => {
   return (
     <section className="relative">
-      <Image
+      <img
         src={PricingPageBannerImage}
-        alt="pricing-banner"
-        width={1000}
-        height={1000}
-        layout="responsive"
+        alt="Home-banner"
+        // width={1000}
+        // height={1000}
+        // layout="responsive"
       />
       <div className="container mx-auto">
         <div className="absolute inset-y-20 flex items-baseline flex-col gap-y-6 w-[50%] pricing-head">
@@ -34,4 +33,4 @@ const PricingPageBanner = () => {
   );
 };
 
-export default PricingPageBanner;
+export default HomePageBanner;
