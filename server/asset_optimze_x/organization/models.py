@@ -16,7 +16,7 @@ class Organization(models.Model):
     
     def save(self, *args, **kwargs):
         # Generate the slug by combining organization name and user's ID
-        self.slug = slugify(f"{self.name} {self.user.id}")
+        self.slug = slugify(f"{self.name} {self.owner.id}")
         super(Organization, self).save(*args, **kwargs)
         
 class OrganizationMember(models.Model):
