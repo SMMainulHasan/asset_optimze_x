@@ -1,6 +1,6 @@
-import cloudIcon from "@/assets/svg/cloud-icon.svg";
-import colorPalette from "@/assets/svg/color-palette-icon.svg";
-import lockIcon from "@/assets/svg/lock-icon.svg";
+import cloudIcon from "../../../../assets/svg/cloud-icon.svg";
+import colorPalette from "../../../../assets/svg/color-palette-icon.svg";
+import lockIcon from "../../../../assets/svg/lock-icon.svg";
 
 export const coreItems = [
   {
