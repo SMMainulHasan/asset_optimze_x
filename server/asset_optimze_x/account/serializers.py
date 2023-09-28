@@ -9,11 +9,14 @@ from account.utils import *
 ######### User Resistration Serializers ####################
 class UserRegistrationSerializer(serializers.ModelSerializer):
   password2 = serializers.CharField(style={'input_type':'password'}, write_only = True)
+  phone_number = serializers.ReadOnlyField()
+  tc = serializers.ReadOnlyField()
   class Meta:
     model = User
-    fields = ['email', 'name', 'phone_number', 'password', 'password2']
+    fields = ['email', 'name', 'phone_number', 'password', 'password2', 'tc']
     extra_kwargs = {
-      'password':{'write_only':True}
+      'password':{'write_only':True},
+      
     }
   
   ## Validating Password and Confirm Password while Registration
@@ -24,23 +27,22 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
       raise serializers.ValidationError("Password and Confirm Password doesn't match")  
     return attrs      
  
-  
-  def create(self, validate_data):
+  def create(self, validate_data):   
     return User.objects.create_user(**validate_data)
   
-######### Register Accout Serializer ############
-class RegisterAccountSerializer(serializers.Serializer):
-  def validate(self, attrs):
-    uid = self.context.get('uid')
-    token = self.context.get('token')
-    id = smart_str(urlsafe_base64_decode(uid))
-    user = User.objects.get(id = id)
-    if user is not None:
-      user.is_active = True
-      user.save()
-      return attrs
-    else:
-      raise ValidationError('Token is not Valid or Expired')
+######### Register  Accout Active Serializer ############
+# class RegisterAccountSerializer(serializers.Serializer):
+  # def validate(self, attrs):
+  #   uid = self.context.get('uid')
+  #   token = self.context.get('token')
+  #   id = smart_str(urlsafe_base64_decode(uid))
+  #   user = User.objects.get(id = id)
+  #   if user is not None:
+  #     user.is_active = True
+  #     user.save()
+  #     return attrs
+  #   else:
+  #     raise ValidationError('Token is not Valid or Expired')
   
 ########## User Login Serializers #################
 class UserLoginSerializer(serializers.ModelSerializer):
@@ -55,6 +57,24 @@ class UserProfileSerializer(serializers.ModelSerializer):
     model = User
     fields = ['id', 'email', 'name', 'phone_number']
   
+####### user Change password Serializer #####
+class UserChangePasswordSerializer(serializers.Serializer):
+  password = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
+  password2 = serializers.CharField(max_length=255, style={'input_type':'password'}, write_only=True)
+  class Meta:
+    fields = ['password', 'password2']
+  
+  def validate(self, attrs):
+    password = attrs.get('password')
+    password2 = attrs.get('password2')
+    user = self.context.get('user')
+    if password != password2:
+      raise serializers.ValidationError("Password and Confirm Password doesn't match")
+    user.set_password(password)
+    user.save()
+    return attrs
+
+
 ########### Send Email Reset Password ####
 class SendPasswordEmailSerializer(serializers.Serializer):
   email = serializers.EmailField(max_length=255) 
@@ -69,11 +89,11 @@ class SendPasswordEmailSerializer(serializers.Serializer):
       print('Encoded UID ', uid)
       token = PasswordResetTokenGenerator().make_token(user)
       print("password Reset Token", token)
-      link = "http://localhost:3000/api/user/reset/"+uid+'/'+token
+      link = "http://localhost:5173/api/user/reset/"+uid+'/'+token
       print('Password reset link', link)
       
       ## Send Email
-      body = 'Click Following Link to Reset Your Password' + link
+      body = 'Click Following Link to Reset Your Password ' + link
       data = {
         'subject' :'Reset Your Password',
         'body': body,
@@ -91,12 +111,14 @@ class  UserPasswordResetSerializer(serializers.Serializer):
   password2 = serializers.CharField(max_length = 255, style={'input_type':'password'}, write_only=True)
   class Meta:
     fields = ['password', 'password2'] 
+    
   def validate(self, attrs):
     try:
       password = attrs.get('password')
       password2 = attrs.get('password2')
       uid = self.context.get('uid')
       token = self.context.get('token')  
+      
       if password != password2:
         raise serializers.ValidationError("Password and confirm password doesn't match")
       id =smart_str(urlsafe_base64_decode(uid))

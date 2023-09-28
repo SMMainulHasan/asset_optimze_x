@@ -37,21 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    'corsheaders',    ######## corsheader
     'rest_framework',
-    'rest_framework_simplejwt',
+    'rest_framework_simplejwt', ####### JWT token add
     'account',
-    
-    
+    'user_profile',      
 ]
 
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", ##### Cors-header add frontend access required
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,14 +85,17 @@ WSGI_APPLICATION = 'asset_optimze_x.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+############ MySQL Database Add ##############
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'asset',
-        'USER': 'root',
-        'PASSWORD':'password',
-        'HOST': '127.0.0.1',
-        'PORT': '3306', 
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'asset',
+        # 'USER': 'root',
+        # 'PASSWORD':'password',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306', 
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -128,12 +130,19 @@ USE_I18N = True
 
 USE_TZ = True
 
+####### Custom user Model Required Field ###########
 AUTH_USER_MODEL = 'account.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+# STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS =  [
+    BASE_DIR/'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -152,7 +161,6 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-   
    
 
     "AUTH_HEADER_TYPES": ("Bearer",),
@@ -177,13 +185,13 @@ SIMPLE_JWT = {
 
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    
+]
 
 ######## Reset password Email Token Time limit ##########
-PASSWORD_RESET_TIMEOUT = 900
+PASSWORD_RESET_TIMEOUT = 900 ### second
 
 ######## Email Configuration #####
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
