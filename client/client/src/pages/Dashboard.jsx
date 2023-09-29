@@ -12,6 +12,7 @@ useNavigate
 ChangePassword
 useGetLoggedUserQuery
 NavLink
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 function Dashboard() {

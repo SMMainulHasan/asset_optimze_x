@@ -3,15 +3,17 @@ import { Outlet } from 'react-router-dom'
 import { CssBaseline } from '@mui/material'
 import Nabver from '../components/Nabver'
 import Footer from '../components/Footer'
+import TestNavber from '../components/TestNavber'
 
 Nabver
-
+TestNavber
 
 function Layout() {
   return (
     <>
     <CssBaseline />
-      <Nabver />
+     <TestNavber />
+      {/* <Nabver /> */}
       <Outlet />
       <Footer/>
     </>
