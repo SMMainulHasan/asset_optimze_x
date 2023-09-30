@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager,AbstractBaseUser
 
 #  Custom User Manager
 class UserManager(BaseUserManager):
-  def create_user(self, email, name, password=None, password2=None):
+  def create_user(self, email, name, phone_number,  password=None, password2=None):
       """
       Creates and saves a User with the given email, name, tc and password.
       """
@@ -13,13 +13,15 @@ class UserManager(BaseUserManager):
       user = self.model(
           email=self.normalize_email(email),
           name=name,
+          phone_number = phone_number,
+         
       )
 
       user.set_password(password)
       user.save(using=self._db)
       return user
 
-  def create_superuser(self, email, name, password=None ):
+  def create_superuser(self, email, name, phone_number,  password=None ):
       """
       Creates and saves a superuser with the given email, name, tc and password.
       """
@@ -27,6 +29,8 @@ class UserManager(BaseUserManager):
           email,
           password=password,
           name=name,
+          phone_number=phone_number,
+         
       )
       user.is_admin = True
       user.is_staff = True
@@ -42,11 +46,14 @@ class User(AbstractBaseUser):
       unique=True,
   )
   name = models.CharField(max_length=200)
-  phone_number = models.CharField(max_length=50, blank=True )
+  phone_number = models.CharField(max_length=50, unique=True )
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
-  tc = models.BooleanField(blank=True, null=True, default=False)
   image = models.ImageField(upload_to = 'images/account/', null=False, blank = False, default='profile_pics/profile.jpg')
+  bio = models.CharField(max_length=50,blank=False, null=False, default=False) 
+ 
+  country = models.CharField(max_length=100, default=False, null=False, blank=False)
+  zip_code = models.CharField(max_length=100, default=False, null=False)
 
   is_admin = models.BooleanField(default=False)
   is_staff = models.BooleanField(default=False)
@@ -54,7 +61,7 @@ class User(AbstractBaseUser):
   is_superadmin = models.BooleanField(default=False)
 
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ['name']
+  REQUIRED_FIELDS = ['name',  'phone_number']
   
   objects = UserManager()
   
@@ -70,5 +77,4 @@ class User(AbstractBaseUser):
       "Does the user have permissions to view the app `app_label`?"
       # Simplest possible answer: Yes, always
       return True
-
 
