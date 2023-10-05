@@ -16,6 +16,7 @@ from organization.models import Organization
 from rest_framework import status
 
 
+############## Register Organization #################
 class OrganizationRegisterAPIView(viewsets.ModelViewSet):
     renderer_classes = [UserRenderer]
     queryset = Organization.objects.all()
@@ -30,7 +31,8 @@ class OrganizationRegisterAPIView(viewsets.ModelViewSet):
         print("EMail: ", user.id)
         uid = urlsafe_base64_encode(force_bytes(user.id))
         token = default_token_generator.make_token(user)
-        organization_name =  serializer.data.get('organization_name')       
+        organization_name =  serializer.data.get('organization_name')    
+        organization_name = urlsafe_base64_encode(force_bytes(organization_name))   
              
         link = "http://localhost:5173/api/organization/register/"
         print("uid", uid, " Token", token, " link", link, 'organizationName', organization_name)
@@ -45,10 +47,10 @@ class OrganizationRegisterAPIView(viewsets.ModelViewSet):
         return Response({'message': 'Please Check Your Email'}, status=status.HTTP_201_CREATED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
-  
+############## Active Organization ##################
 class registerOrganizationVerify(APIView):
   renderer_classes = [UserRenderer]
-  def get(self, request, uid, token,organization_name, format = None):
+  def post(self, request, uid, token,organization_name, format = None):
     serializer = registerOrganizationVerifySerializer(data=request.data, context = {'uid':uid, 'token':token, 'organization_name':organization_name})
     if serializer.is_valid(raise_exception=True):
       
@@ -56,6 +58,17 @@ class registerOrganizationVerify(APIView):
         'msg':'Organization Account Active Successfully'
       })
     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class OrganizationTotal(APIView): 
+class OrganizationTotal(APIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+      serializer = totalOrganization(data=request.user)
+      lst = Organization.objects.filter(user=serializer.initial_data)
+      st = {}
+      for i in lst:
+        st[i.organization_name] = i.company_phone_number
      
-
-
+      return Response(st)
