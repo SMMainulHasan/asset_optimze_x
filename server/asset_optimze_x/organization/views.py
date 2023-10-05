@@ -66,9 +66,12 @@ class OrganizationTotal(APIView):
 
     def get(self, request):
       serializer = totalOrganization(data=request.user)
-      lst = Organization.objects.filter(user=serializer.initial_data)
-      st = {}
-      for i in lst:
-        st[i.organization_name] = i.company_phone_number
-     
-      return Response(st)
+      organization = Organization.objects.filter(user=serializer.initial_data)
+
+      lst = []
+      for i in organization:
+         st = {}
+         st['id'] = i.id
+         st['organization_name'] = i.organization_name
+         lst.append(st)
+      return Response(lst)

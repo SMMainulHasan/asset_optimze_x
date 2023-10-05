@@ -8,7 +8,7 @@ from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeErr
 class organigationRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
-        fields = ['organization_name', 'organization_logo', 'description', 'country', 'zip_code', 'tc', 'company_phone_number']
+        fields = ['organization_name',  'description', 'country', 'zip_code', 'tc', 'company_phone_number']
    
 ############# Active Register Organization ###############     
 class registerOrganizationVerifySerializer(serializers.Serializer):
